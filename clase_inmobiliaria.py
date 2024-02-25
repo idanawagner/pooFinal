@@ -30,6 +30,9 @@ class Inmobiliaria():
 
     @classmethod
     def calcularComision(self, precio):
-        for i in range(len(self._cuadroTarifario)):
-            if precio <= self._cuadroTarifario[i][0]:
-                return self._cuadroTarifario[i][1]
+        try:
+            for i in range(len(self._cuadroTarifario)):
+                if self._cuadroTarifario[i][0] <= precio < self._cuadroTarifario[i+1][0]:
+                    return self._cuadroTarifario[i][1]
+        except IndexError as e:
+            return  self._cuadroTarifario[-1][1]

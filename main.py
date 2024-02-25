@@ -77,10 +77,23 @@ print('----------- Imprimir inmueble 1 ----------')
 print(Inmueble.getInmueble(0))
 print('\n')
 
+print('----------- Imprimir inmueble 1 ----------')
+casa1.setPrecioAlquilerPropietario(10000)
+casa1.calcular_precio(casa1)
+print(Inmueble.getInmueble(0))
+print('\n')
 
 
+print('----------- Se setea el valor de venta al departamento que tiene estado inactivo ----------')
+departamento1.setPrecioVentaPropietario(10000001222)
+precio = departamento1.calcular_precio(departamento1)
+print(precio)
+print('----------- Imprimir inmueble 2 ----------')
+print(Inmueble.getInmueble(1))
+print('\n')
 
-
+# metodo de clase
+# Inmueble.listaInmuebles(id)
 
 
 
