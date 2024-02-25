@@ -1,34 +1,35 @@
 class Inmobiliaria():
-    _listaPropiedades = []
-    def __init__(self, razonSocial, cuit, porcentajeAlquiler, porcentajeVenta):
+    _cuadroTarifario = (
+    (0, 0.03), (500000, 0.025), (1000000, 0.02), (5000000, 0.015), (10000000, 0.01), (10000001, 0.005))
+    _listaInmobiliarias = []
+
+    def __init__(self, razonSocial, cuit):
+        self._id = len(self._listaInmobiliarias)
         self._razonSocial = razonSocial
         self._cuit = cuit
-        self._porcentajeAlquiler = porcentajeAlquiler
-        self._porcentajeVenta = porcentajeVenta
 
-        def getRazonSocial(self):
-            return self._razonSocial
+        self._listaInmobiliarias.append(self)
 
-        def setRazonSocial(self, nuevo):
-            self._razonSocial = nuevo
+    def __str__(self):
+        return f'Id: {self.getId()}, Razon Social: {self.getRazonSocial()}, Cuit: {self.getCuit()}'
 
-        def getCuit(self):
-            return self._cuit
+    def getId(self):
+        return self._id
 
-        def setCuit(self, nuevo):
-            self._cuit = nuevo
+    def getRazonSocial(self):
+        return self._razonSocial
 
-        def getPorcentajeAlquiler(self):
-            return self._porcentajeAlquiler
+    def setRazonSocial(self, nuevo):
+        self._razonSocial = nuevo
 
-        def setPorcentajeAlquiler(self, nuevo):
-            self._porcentajeAlquiler = nuevo
+    def getCuit(self):
+        return self._cuit
 
-        def getPorcentajeVenta(self):
-            return self._porcentajeVenta
+    def setCuit(self, nuevo):
+        self._cuit = nuevo
 
-        def setPorcentajeVenta(self, nuevo):
-            self._porcentajeVenta = nuevo
-
-        def agregarPropiedad(self, nuevaPropiedad):
-            _listaPropiedades.append(nuevaPropiedad)
+    @classmethod
+    def calcularComision(self, precio):
+        for i in range(len(self._cuadroTarifario)):
+            if precio <= self._cuadroTarifario[i][0]:
+                return self._cuadroTarifario[i][1]

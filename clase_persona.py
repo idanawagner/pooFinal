@@ -1,12 +1,15 @@
-class Propietario:
+class Persona:
+    _listaPersonas=[]
     def __init__(self, id, nombre, apellido, dni):
-        self._id = id
+        self._id = len(self._listaPersonas)
         self._nombre = nombre
         self._apellido = apellido
         self._dni = dni
 
+        self._listaPersonas.append(self)
+
     def __str__(self):
-        return f' Nombre: {self._nombre}\nApellido: {self._apellido}\nDni:{self._dni}'
+        return f'{self._nombre} {self._apellido}, Dni: {self._dni}'
     
     def getId(self):
         return self._id
@@ -28,4 +31,5 @@ class Propietario:
 
     def setDni(self, nuevo):
         self._dni = nuevo
+
 

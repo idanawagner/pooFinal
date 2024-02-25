@@ -2,10 +2,14 @@ from clase_inmueble import *
 
 
 class Casa(Inmueble):
-    def __init__(self, id, direccion, ambientes, superficie, propietario, estado, supPatio, cochera):
-        super().__init__(id, direccion, ambientes, superficie, propietario, estado)
+    def __init__(self, direccion, ambientes, superficie, propietario, inmobiliaria, supPatio, cochera):
+        super().__init__(direccion, ambientes, superficie, propietario, inmobiliaria)
         self._supPatio = supPatio
         self._cochera = cochera
+
+    def __str__(self):
+        str = super().__str__()
+        return str + f'\nSuperficie Patio: {self.getSupPatio()}\nCochera: {self.getCochera()}'
 
 
     def getId(self):
@@ -23,7 +27,4 @@ class Casa(Inmueble):
     def setCochera(self, nuevo):
         self._cochera = nuevo
 
-    def infoCasa(self):
-        str = super().__str__()
-        return str + f'Superficie Patio: {self.getSupPatio()}\nCochera: {self.getCochera()}'
 
