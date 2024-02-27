@@ -1,8 +1,8 @@
 from clase_inmueble import *
 
 class Departamento(Inmueble):
-    def __init__(self, direccion, ambientes, superficie,  propietario, inmobiliaria, expensas, nroDpto, cochera):
-        super().__init__(direccion, ambientes, superficie, propietario, inmobiliaria)
+    def __init__(self, direccion, ambientes, superficie,  propietario, inmobiliaria, expensas, nroDpto, cochera, tipo = 'departamento'):
+        super().__init__(direccion, ambientes, superficie, propietario, inmobiliaria, tipo)
         self._expensas = expensas
         self._nroDpto = nroDpto
         self._cochera = cochera

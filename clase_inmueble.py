@@ -1,15 +1,17 @@
 from abc import ABC, abstractmethod
 from clase_inmobiliaria import *
 class Inmueble():
-    _listaEstado=['inactivo','alquiler', 'alquilado', 'venta', 'vendido', 'alquiler y venta']
+    _listaEstado=['inactivo','en alquiler', 'alquilado', 'en venta', 'vendido', 'en alquiler y venta']
     _listaInmuebles = []
-    def __init__(self, direccion, ambientes, superficie, propietario,inmobiliaria, inquilino=None, precioAlquilerPropietario=0, precioVentaPropietario=0, precioFinalAlquiler=0, precioFinalVenta=0, comisionAlquiler=0, comisionVenta=0):
+    _listaInmueblesXporpietario=[]
+    def __init__(self, direccion, ambientes, superficie, propietario,inmobiliaria, tipo, inquilino=None, precioAlquilerPropietario=0, precioVentaPropietario=0, precioFinalAlquiler=0, precioFinalVenta=0, comisionAlquiler=0, comisionVenta=0):
         self._id = len(self._listaInmuebles)
         self._direccion = direccion
         self._ambientes = ambientes
         self._superficie = superficie
         self._propietario = propietario
         self._inmobiliaria = inmobiliaria
+        self._tipo = tipo
         self._inquilino = inquilino
         self._precioAlquilerPropietario = precioAlquilerPropietario
         self._precioVentaPropietario = precioVentaPropietario
@@ -23,7 +25,7 @@ class Inmueble():
 
     @abstractmethod
     def __str__(self):
-        return f'ID: {self._id}\nDireccion: {self.getDireccion()}\nAmbientes: {self.getAmbientes()} \nSuperficie: {self.getSuperficie()} mts2\nEstado: {self.getEstado()}\nPropietario: {self.getPropietario()}\nInmobiliaria: {str(self.getInmobiliaria())}\nInquilino: {self.getInquilino()}\nPrecio alquiler propietario: {self.getPrecioAlquilerPropietario()}\nPrecio venta propietario: {self.getPrecioVentaPropietario()}\nComision alquiler: {self.getComisionAlquiler()}\nComision venta: {self.getComisionVenta()}\nPrecio final alquiler: {self.getPrecioFinalAlquiler()}\nPrecio final venta: {self.getPrecioFinalVenta()}'
+        return f'ID: {self._id}\nTipo: {self.getTipo()}\nDireccion: {self.getDireccion()}\nAmbientes: {self.getAmbientes()} \nSuperficie: {self.getSuperficie()} mts2\nEstado: {self.getEstado()}\nPropietario: {self.getPropietario()}\nInmobiliaria: {str(self.getInmobiliaria())}\nInquilino: {self.getInquilino()}\nPrecio alquiler propietario: {self.getPrecioAlquilerPropietario()}\nPrecio venta propietario: {self.getPrecioVentaPropietario()}\nComision alquiler: {self.getComisionAlquiler()}\nComision venta: {self.getComisionVenta()}\nPrecio final alquiler: {self.getPrecioFinalAlquiler()}\nPrecio final venta: {self.getPrecioFinalVenta()}'
 
     def getId(self):
         return self._id
@@ -70,13 +72,22 @@ class Inmueble():
 
     def setInmobiliaria(self, nuevo):
         self._inmobiliaria = nuevo
-
+        
+    def getTipo(self):
+        return self._tipo
+        
+    def setTipo(self, nuevo):
+        self._tipo = nuevo
+        
 
     def getInquilino(self):
         return self._inquilino
 
     def setInquilino(self, nuevo):
-        self._inquilino = nuevo
+        if self.getEstado() == 'inactivo' or self.getEstado() == 'alquilado' or self.getEstado() == 'vendido':
+            return 'Estado inactivo, debe cambiarlo para poder asignar un inquilino'
+        else:
+            self._inquilino = nuevo
 
     def getPrecioAlquilerPropietario(self):
         return self._precioAlquilerPropietario
@@ -117,10 +128,10 @@ class Inmueble():
     # Metodo de clase
     @classmethod
     def getInmuebles(cls):
+        listar = []
         for indice, inmueble in enumerate(cls._listaInmuebles):
-            print(f'---------Inmueble {indice + 1}---------')
-            print(inmueble)
-
+            listar.append(f'---------Inmueble {indice}---------\n{inmueble}\n')
+        return listar
     @classmethod
     def getInmueble(cls, id):
         for inmueble in cls._listaInmuebles:
@@ -136,13 +147,37 @@ class Inmueble():
                 return True
         return False
 
+    def __iter__(self):
+        self.indice = 0
+        return self
+
+    def __next__(self):
+        while self.indice < len(self._listaInmuebles):
+            elemento = self._listaInmuebles[self.indice]
+            self.indice += 1
+            return elemento
+        raise StopIteration
+
+    @classmethod
+    def inmueblesPorPropietario(cls, idPropietario):
+        for inmueble in cls._listaInmuebles:
+            if idPropietario == inmueble.getPropietario().getId():
+                cls._listaInmueblesXporpietario.append(inmueble)
+        return cls._listaInmueblesXporpietario
+
+
     def calcular_precio(self, inmueble):
-        if inmueble.getEstado() == 'alquiler':
+        if inmueble.getEstado() == 'en alquiler':
             self._comisionAlquiler = Inmobiliaria.calcularComision(inmueble.getPrecioAlquilerPropietario())
-        elif inmueble.getEstado() == 'venta':
+            self._precioFinalAlquiler = self._precioAlquilerPropietario * (1+ self._comisionAlquiler)
+        elif inmueble.getEstado() == 'en venta':
             self._comisionVenta =  Inmobiliaria.calcularComision(inmueble.getPrecioVentaPropietario())
-        elif inmueble.getEstado() == 'alquiler y venta':
+            self._precioFinalVenta = self._precioVentaPropietario * (1+ self._comisionVenta)
+        elif inmueble.getEstado() == 'en alquiler y venta':
             self._comisionAlquiler = Inmobiliaria.calcularComision(inmueble.getPrecioAlquilerPropietario())
             self._comisionVenta = Inmobiliaria.calcularComision(inmueble.getPrecioVentaPropietario())
+            self._precioFinalAlquiler = self._precioAlquilerPropietario * (1+ self._comisionAlquiler)
+            self._precioFinalVenta = self._precioVentaPropietario * (1+ self._comisionVenta)
         elif inmueble.getEstado() == 'alquilado' or inmueble.getEstado() == 'vendido' or inmueble.getEstado() == 'inactivo':
             return 'Estado no valido para calcular precios'
+        return 'El precio se seteo con exito'
