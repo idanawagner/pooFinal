@@ -13,7 +13,6 @@ print(inmobiliariaWagner.__dict__)
 print(inmobiliariaLopez.__dict__)
 print('\n')
 
-
 print('------- Se crean los propietarios -----------')
 propietarioIdana = Persona( nombre='Idana',apellido= 'Wagner',dni= 36477183)
 propietarioJuan = Persona('Juan', 'Perez', 32443153)
@@ -32,15 +31,12 @@ print(inquilinoJose.__dict__)
 print(inquilinoRamon.__dict__)
 print('\n')
 
-
 print('----- Se crean las casas ----------')
 casa0 = Casa(direccion='Av alem 100', ambientes=4,superficie= 600,propietario=propietarioIdana,inmobiliaria=inmobiliariaWagner,supPatio= 30,cochera= True)
 casa1 = Casa(direccion='Belgrano 20', ambientes=2,superficie= 300,propietario=propietarioMaria,inmobiliaria=inmobiliariaWagner,supPatio= 10,cochera= False)
 casa2 = Casa(direccion='Gorriti 30', ambientes=5,superficie= 1000,propietario=propietarioIdana,inmobiliaria=inmobiliariaWagner,supPatio=80,cochera= True)
 print(casa0)
 print('\n')
-
-
 
 print('------- Se crean los departamentos -----------')
 departamento3 = Departamento( direccion= 'Rodriguez 15',ambientes= 5,superficie= 400,propietario=propietarioJuan,inmobiliaria=inmobiliariaLopez,expensas=39440,nroDpto= 9,cochera= True)
@@ -99,10 +95,6 @@ print('----------- Imprimir inmueble ----------')
 print(Inmueble.getInmueble(3))
 print('\n')
 
-
-
-
-
 print('----------- Se setea el estado del departamento a "venta" ----------')
 print(departamento4.getEstado())
 departamento4.setEstado('en venta')
@@ -129,7 +121,6 @@ except ValueError as e:
 except NameError:
     print('Propietario sin definir')
 print('\n')
-
 
 print('----------- Lista de inmuebles segun id de la inmobiliaria ----------')
 print(inmobiliariaWagner)
