@@ -19,6 +19,7 @@ propietarioIdana = Persona( nombre='Idana',apellido= 'Wagner',dni= 36477183)
 propietarioJuan = Persona('Juan', 'Perez', 32443153)
 propietarioMaria = Persona('Maria', 'Rodriguez', 22182828)
 propietarioRosa = Persona('Rosa', 'Garcia', 23223232)
+propietario4 = Persona('Julian', 'Martinez', 23223232)
 
 print(propietarioIdana.__dict__)
 print(propietarioJuan.__dict__)
@@ -115,10 +116,28 @@ print(Inmueble.getInmueble(4))
 print('\n')
 
 print('----------- Lista de inmuebles segun id del propietario ----------')
-inmueblesPropietario0 = Inmueble.inmueblesPorPropietario(0)
-print(propietarioIdana)
-for inmueble in inmueblesPropietario0:
-    print(inmueble.getTipo(), inmueble.getDireccion())
+# Se declara una variable adicional llamada prop para poder realizar rapidamente el cambio y mostrar los distintos casos posibles, por ejemplo cuando existe el propietario y no tiene inmuebles, cuando no existe, o cuando existe y tiene inmuebles
+try:
+    prop = propietario4
+    inmueblesPropietario0 = Inmueble.inmueblesPorPropietario(prop.getId())
+    print(prop)
+    for inmueble in inmueblesPropietario0:
+        print(inmueble.getTipo(), inmueble.getDireccion())
+except ValueError as e:
+    print(f'Error: {e}')
+except NameError:
+    print('Propietario sin definir')
+print('\n')
+
+
+print('----------- Lista de inmuebles segun id de la inmobiliaria ----------')
+print(inmobiliariaWagner)
+try:
+    inmueblesInmobiliariaWagner = Inmueble.inmueblesPorInmobiliaria(1)
+    for inmueble in inmueblesInmobiliariaWagner:
+        print(inmueble.getTipo(), inmueble.getDireccion())
+except ValueError as e:
+    print(f'Error: {e}')
 print('\n')
 
 print('----------- Se crea un quincho y se intenta agregar la fecha reservada ----------')
@@ -137,13 +156,13 @@ print(quincho)
 
 
 
-print('-----------Lista inmuebles ----------')
-listarInmuebles = Inmueble.getInmuebles()
-for inmueble in listarInmuebles:
-    print(inmueble)
-print('\n')
-
-
+# print('-----------Lista inmuebles ----------')
+# listarInmuebles = Inmueble.getInmuebles()
+# for inmueble in listarInmuebles:
+#     print(inmueble)
+# print('\n')
+#
+#
 
 
 

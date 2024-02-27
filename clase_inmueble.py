@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
 from clase_inmobiliaria import *
+from clase_persona import *
 class Inmueble():
     _listaEstado=['inactivo','en alquiler', 'alquilado', 'en venta', 'vendido', 'en alquiler y venta']
     _listaInmuebles = []
     _listaInmueblesXporpietario=[]
+    _listaInmueblesXinmobiliaria = []
     def __init__(self, direccion, ambientes, superficie, propietario,inmobiliaria, tipo, inquilino=None, precioAlquilerPropietario=0, precioVentaPropietario=0, precioFinalAlquiler=0, precioFinalVenta=0, comisionAlquiler=0, comisionVenta=0):
         self._id = len(self._listaInmuebles)
         self._direccion = direccion
@@ -76,8 +78,8 @@ class Inmueble():
     def getTipo(self):
         return self._tipo
         
-    def setTipo(self, nuevo):
-        self._tipo = nuevo
+    # def setTipo(self, nuevo):
+    #     self._tipo = nuevo
         
 
     def getInquilino(self):
@@ -125,7 +127,7 @@ class Inmueble():
     #     self._comisionVenta = nuevo
 
 
-    # Metodo de clase
+    # Metodos de clase
     @classmethod
     def getInmuebles(cls):
         listar = []
@@ -160,11 +162,27 @@ class Inmueble():
 
     @classmethod
     def inmueblesPorPropietario(cls, idPropietario):
+        cls._listaInmueblesXporpietario = []
+        if Persona.existePersona(idPropietario) :
+            for inmueble in cls._listaInmuebles:
+                if idPropietario == inmueble.getPropietario().getId():
+                    cls._listaInmueblesXporpietario.append(inmueble)
+            if len(cls._listaInmueblesXporpietario) == 0:
+                raise ValueError('El propietario no tiene inmuebles')
+            else:
+                return cls._listaInmueblesXporpietario
+        else:
+            raise ValueError('El propietario no existe')
+    @classmethod
+    def inmueblesPorInmobiliaria(cls, idInmobiliaria):
+        cls._listaInmueblesXinmobiliaria = []
         for inmueble in cls._listaInmuebles:
-            if idPropietario == inmueble.getPropietario().getId():
-                cls._listaInmueblesXporpietario.append(inmueble)
-        return cls._listaInmueblesXporpietario
-
+            if idInmobiliaria == inmueble.getInmobiliaria().getId():
+                    cls._listaInmueblesXinmobiliaria.append(inmueble)
+        if len(cls._listaInmueblesXinmobiliaria) == 0:
+            raise ValueError('La inmobiliaria no tiene inmuebles')
+        else:
+            return cls._listaInmueblesXinmobiliaria
 
     def calcular_precio(self, inmueble):
         if inmueble.getEstado() == 'en alquiler':

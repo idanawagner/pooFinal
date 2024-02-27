@@ -32,4 +32,10 @@ class Persona:
     def setDni(self, nuevo):
         self._dni = nuevo
 
+    @classmethod
+    def existePersona(cls, idPersona):
+        for persona in cls._listaPersonas:
+            if idPersona == persona.getId():
+                return True
+        return False
 

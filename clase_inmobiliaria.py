@@ -2,11 +2,11 @@ class Inmobiliaria():
     _cuadroTarifario = (
     (0, 0.03), (500000, 0.025), (1000000, 0.02), (5000000, 0.015), (10000000, 0.01), (10000001, 0.005))
     _listaInmobiliarias = []
-
     def __init__(self, razonSocial, cuit):
         self._id = len(self._listaInmobiliarias)
         self._razonSocial = razonSocial
         self._cuit = cuit
+
 
         self._listaInmobiliarias.append(self)
 
