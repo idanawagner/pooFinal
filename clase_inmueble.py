@@ -64,8 +64,8 @@ class Inmueble():
     def getPropietario(self):
         return self._propietario
 
-    def setPropietario(self, idPropietario):
-        self._propietario = idPropietario
+    def setPropietario(self, nuevo):
+        self._propietario = nuevo
         self.setEstado('vendido')
 
     def getInmobiliaria(self):
@@ -137,7 +137,6 @@ class Inmueble():
         for inmueble in cls._listaInmuebles:
             if inmueble.getId() == id:
                 return inmueble
-        return 'No se encontro el inmueble'
     
     @classmethod
     def eliminarInmueble(cls, id):
@@ -153,9 +152,9 @@ class Inmueble():
 
     def __next__(self):
         while self.indice < len(self._listaInmuebles):
-            elemento = self._listaInmuebles[self.indice]
+            inmueble = self._listaInmuebles[self.indice]
             self.indice += 1
-            return elemento
+            return inmueble
         raise StopIteration
 
     @classmethod

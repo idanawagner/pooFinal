@@ -39,7 +39,7 @@ class Quincho(Inmueble):
     def getListaReservas(self):
         return self._listaReservas
 
-    def setListaReservas(self, fecha):
+    def setListaReservas(self, nuevo):
         if self.getEstado() == 'en alquiler':
-            self._listaReservas.append(fecha)
+            self._listaReservas.append(nuevo)
 

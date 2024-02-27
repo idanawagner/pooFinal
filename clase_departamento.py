@@ -14,14 +14,14 @@ class Departamento(Inmueble):
     def getExpensas(self):
         return self._expensas
 
-    def setExpensas(self, expensas):
-        self._expensas = expensas
+    def setExpensas(self, nuevo):
+        self._expensas = nuevo
 
     def getNroDpto(self):
         return self._nroDpto
 
-    def setNroDpto(self, nroDpto):
-        self._nroDpto = nroDpto
+    def setNroDpto(self, nuevo):
+        self._nroDpto = nuevo
 
     def getCochera(self):
         return self._cochera

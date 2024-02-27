@@ -11,15 +11,11 @@ class Casa(Inmueble):
         datos = super().__str__()
         return datos + f'\nSuperficie Patio: {self.getSupPatio()}\nCochera: {self.getCochera()}'
 
-
-    def getId(self):
-        return self._id
-
     def getSupPatio(self):
         return self._supPatio
 
-    def setSupPatio(self, supPatio):
-        self._supPatio = supPatio
+    def setSupPatio(self, nuevo):
+        self._supPatio = nuevo
 
     def getCochera(self):
         return self._cochera
