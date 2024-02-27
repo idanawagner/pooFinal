@@ -62,11 +62,14 @@ print(departamento3)
 print('\n')
 
 print('------- Se asigna un inquilino a la casa con estado "inactivo" -----------')
-asignado = casa1.setInquilino(inquilinoRamon)
-print(asignado, '\n')
+casa1.setInquilino(inquilinoRamon)
 print(casa1)
 print('\n')
-
+print('------- Se cambia el estado a "en alquiler" y luego se setea el inquilino -----------')
+casa1.setEstado('en alquiler')
+casa1.setInquilino(inquilinoRamon)
+print(casa1)
+print('\n')
 
 print('----------- Se setea el precio del alquiler en la casa con estado "inactivo"----------')
 casa1.setPrecioAlquilerPropietario(10000)
@@ -76,9 +79,7 @@ print(Inmueble.getInmueble(1))
 print('\n')
 
 
-
 print('------- Se vende el departamento -----------')
-departamento3.setEstado('vendido')
 departamento3.setPropietario(propietarioMaria)
 print(departamento3)
 print('\n')
@@ -161,8 +162,6 @@ print(quincho)
 # for inmueble in listarInmuebles:
 #     print(inmueble)
 # print('\n')
-#
-#
 
 
 

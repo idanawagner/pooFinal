@@ -60,14 +60,13 @@ class Inmueble():
     def setEstado(self, nuevo):
         if nuevo in self._listaEstado :
             self._estado = nuevo
-        else:
-            print('Estado no valido')
 
     def getPropietario(self):
         return self._propietario
 
     def setPropietario(self, idPropietario):
         self._propietario = idPropietario
+        self.setEstado('vendido')
 
     def getInmobiliaria(self):
         return self._inmobiliaria
@@ -86,10 +85,9 @@ class Inmueble():
         return self._inquilino
 
     def setInquilino(self, nuevo):
-        if self.getEstado() == 'inactivo' or self.getEstado() == 'alquilado' or self.getEstado() == 'vendido':
-            return 'Estado inactivo, debe cambiarlo para poder asignar un inquilino'
-        else:
+        if self.getEstado() == 'en alquiler':
             self._inquilino = nuevo
+            self.setEstado('alquilado')
 
     def getPrecioAlquilerPropietario(self):
         return self._precioAlquilerPropietario

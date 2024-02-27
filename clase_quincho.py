@@ -42,6 +42,4 @@ class Quincho(Inmueble):
     def setListaReservas(self, fecha):
         if self.getEstado() == 'en alquiler':
             self._listaReservas.append(fecha)
-            return self._listaReservas
-        else:
-            return 'Se requiere que el quincho este en alquiler para poder reservarlo'
+

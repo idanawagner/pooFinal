@@ -7,7 +7,6 @@ class Inmobiliaria():
         self._razonSocial = razonSocial
         self._cuit = cuit
 
-
         self._listaInmobiliarias.append(self)
 
     def __str__(self):
